@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Automotive LMS</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Smooth transition for all elements during mode switch */
+        * {
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Dark Mode Styles */
+        [data-bs-theme="dark"] body {
+            background: linear-gradient(135deg, #0d1b2a, #1b263b, #000814);
+            color: #f8f9fa;
+        }
+        [data-bs-theme="dark"] .login-card {
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+        [data-bs-theme="dark"] .form-control {
+            background-color: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+        [data-bs-theme="dark"] .form-control:focus {
+            background-color: rgba(31, 41, 55, 0.9);
+            border-color: #0dcaf0;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(13, 202, 240, 0.3);
+        }
+
+        /* Light Mode Styles (Clean White & Blue) */
+        [data-bs-theme="light"] body {
+            background: linear-gradient(135deg, #f0f4f8, #d9e2ec, #bcccdc);
+            color: #102a43;
+        }
+        [data-bs-theme="light"] .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(16, 42, 67, 0.1);
+            box-shadow: 0 15px 35px rgba(16, 42, 67, 0.15);
+        }
+        [data-bs-theme="light"] .form-control {
+            background-color: #f0f4f8;
+            border: 1px solid #bcccdc;
+            color: #102a43;
+        }
+        [data-bs-theme="light"] .form-control:focus {
+            background-color: #fff;
+            border-color: #0284c7;
+            color: #102a43;
+            box-shadow: 0 0 10px rgba(2, 132, 199, 0.25);
+        }
+        [data-bs-theme="light"] .text-muted {
+            color: #486581 !important;
+        }
+
+        .login-card {
+            border-radius: 20px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 950px;
+        }
+
+        /* Role Watermark Selector Tabs */
+        .role-selector-container {
+            display: flex;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 30px;
+            padding: 5px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        .role-btn {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 8px 15px;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            z-index: 2;
+            text-align: center;
+        }
+        [data-bs-theme="dark"] .role-btn { color: #9ca3af; }
+        [data-bs-theme="light"] .role-btn { color: #486581; }
+
+        .role-btn.active {
+            color: #fff !important;
+            background: linear-gradient(135deg, #0284c7, #0d9488);
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            border: none;
+            background: transparent;
+            font-size: 1.3rem;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        [data-bs-theme="dark"] .theme-toggle-btn { color: #facc15; }
+        [data-bs-theme="light"] .theme-toggle-btn { color: #0284c7; }
+    </style>
+</head>
+<body>
+
+    <!-- Light/Dark Mode Toggle Button with Motion -->
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+        <i class="fa-solid fa-moon" id="themeIcon"></i>
+    </button>
+
+    <div class="container px-3">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card login-card p-4 p-md-5">
+                    <div class="row align-items-center">
+                        
+                        <!-- Left Side: Branding & Features -->
+                        <div class="col-lg-6 mb-4 mb-lg-0 pe-lg-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-primary text-white p-3 rounded-4 me-3 shadow">
+                                    <i class="fa-solid fa-car-side fa-2x"></i>
+                                </div>
+                                <h3 class="fw-bold mb-0">Automotive <span class="text-info">LMS</span></h3>
+                            </div>
+                            <p class="text-muted small">A modern learning management system designed for Automotive Electrical and Electronics students, teachers, and administrators.</p>
+                            
+                            <div class="mt-4">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fa-solid fa-circle-check text-success me-2"></i>
+                                    <span class="small text-muted">Course Materials & Resources</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fa-solid fa-circle-check text-success me-2"></i>
+                                    <span class="small text-muted">Secure Online Examination System</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fa-solid fa-circle-check text-success me-2"></i>
+                                    <span class="small text-muted">Assignments & Grade Management</span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <i class="fa-solid fa-circle-check text-success me-2"></i>
+                                    <span class="small text-muted">Direct Teacher & Student Communication</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Side: Login Form with Role Selector Watermark -->
+                        <div class="col-lg-6 ps-lg-4 border-start-lg">
+                            <h4 class="fw-bold mb-2">Welcome Back</h4>
+                            <p class="text-muted small mb-4">Sign in to access your LMS account.</p>
+
+                            <!-- Role Watermark / Selector -->
+                            <div class="role-selector-container">
+                                <button type="button" class="role-btn active" id="studentRoleBtn" onclick="setRole('student')">
+                                    <i class="fa-solid fa-user-graduate me-1"></i> Student
+                                </button>
+                                <button type="button" class="role-btn" id="teacherRoleBtn" onclick="setRole('teacher')">
+                                    <i class="fa-solid fa-chalkboard-user me-1"></i> Teacher
+                                </button>
+                            </div>
+
+                            <!-- Login Form -->
+                            <form action="{{ url_for('login') }}" method="POST">
+                                <input type="hidden" id="selected_role" name="role" value="student">
+
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold">Username</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0"><i class="fa-solid fa-user text-muted"></i></span>
+                                        <input type="text" class="form-control border-start-0" name="username" placeholder="Enter your username" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold">Password</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0"><i class="fa-solid fa-lock text-muted"></i></span>
+                                        <input type="password" class="form-control border-start-0" name="password" placeholder="Enter your password" required>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                                        <label class="form-check-label small text-muted" for="rememberMe">Remember me</label>
+                                    </div>
+                                    <a href="#" class="small text-decoration-none text-info fw-bold">Forgot password?</a>
+                                </div>
+
+                                <button type="submit" class="btn btn-info w-100 py-2 fw-bold shadow-sm text-white" style="background: linear-gradient(135deg, #0284c7, #0d9488); border: none;">
+                                    Sign In <i class="fa-solid fa-arrow-right-to-bracket ms-1"></i>
+                                </button>
+                            </form>
+
+                            <div class="text-center mt-4">
+                                <small class="text-muted">Automotive Department LMS &bull; Secure System</small>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Role Selection Functionality
+        function setRole(role) {
+            document.getElementById('selected_role').value = role;
+            const studentBtn = document.getElementById('studentRoleBtn');
+            const teacherBtn = document.getElementById('teacherRoleBtn');
+
+            if(role === 'student') {
+                studentBtn.classList.add('active');
+                teacherBtn.classList.remove('active');
+            } else {
+                teacherBtn.classList.add('active');
+                studentBtn.classList.remove('active');
+            }
+        }
+
+        // Dark & Light Mode Toggle with Icon and Smooth Transition
+        function toggleTheme() {
+            const htmlTag = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (htmlTag.getAttribute('data-bs-theme') === 'dark') {
+                htmlTag.setAttribute('data-bs-theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlTag.setAttribute('data-bs-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme preference
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-bs-theme', savedTheme);
+            const themeIcon = document.getElementById('themeIcon');
+            if (savedTheme === 'light') {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        });
+    </script>
+</body>
+</html>

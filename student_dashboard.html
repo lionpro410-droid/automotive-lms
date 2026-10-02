@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% block title %}Student Dashboard - Automotive LMS{% endblock %}
+
+{% block content %}
+<div class="row g-0 min-vh-100" style="background-color: var(--bs-body-bg); color: var(--bs-body-color);">
+    
+    <!-- Left Sidebar Menu (Matching Teacher Style) -->
+    <div class="col-lg-3 col-xl-2 p-3 border-end" style="background-color: #0f172a; border-color: rgba(255,255,255,0.1) !important; color: #ffffff;">
+        <div class="d-flex align-items-center mb-4 px-2 pt-2">
+            <div class="bg-primary text-white p-2 rounded-3 me-2 shadow-sm">
+                <i class="fa-solid fa-car-side fa-lg"></i>
+            </div>
+            <div>
+                <h6 class="fw-bold mb-0 text-white">Automotive LMS</h6>
+                <small class="text-muted" style="font-size: 0.75rem;">Student Portal</small>
+            </div>
+        </div>
+
+        <div class="small text-uppercase text-muted fw-bold px-2 mb-2" style="font-size: 0.7rem;">STUDENT MENU</div>
+        
+        <div class="list-group list-group-flush gap-1">
+            <a href="#courses-tab" class="list-group-item list-group-item-action active rounded-3 border-0 py-2 px-3 text-white" data-bs-toggle="list" style="background: linear-gradient(135deg, #0284c7, #0d9488);">
+                <i class="fa-solid fa-book-open me-2"></i> Course Dashboard
+            </a>
+            <a href="#exam-tab" class="list-group-item list-group-item-action rounded-3 border-0 py-2 px-3 text-secondary" data-bs-toggle="list" style="background: transparent;">
+                <i class="fa-solid fa-file-pen me-2"></i> Exam Portal
+            </a>
+            <a href="#chat-tab" class="list-group-item list-group-item-action rounded-3 border-0 py-2 px-3 text-secondary" data-bs-toggle="list" style="background: transparent;">
+                <i class="fa-solid fa-comments me-2"></i> Teacher Chat
+            </a>
+            <a href="#grades-tab" class="list-group-item list-group-item-action rounded-3 border-0 py-2 px-3 text-secondary" data-bs-toggle="list" style="background: transparent;">
+                <i class="fa-solid fa-chart-line me-2"></i> My Grades
+            </a>
+            <a href="#settings-tab" class="list-group-item list-group-item-action rounded-3 border-0 py-2 px-3 text-secondary" data-bs-toggle="list" style="background: transparent;">
+                <i class="fa-solid fa-key me-2"></i> Change Password
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="col-lg-9 col-xl-10 p-4">
+        
+        <!-- Top Header Bar with Theme Toggle -->
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
+            <div>
+                <h4 class="fw-bold mb-0">Student Dashboard</h4>
+                <small class="text-muted">Welcome back, Student</small>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <!-- Theme Toggle Button -->
+                <button class="btn btn-sm btn-outline-secondary rounded-circle shadow-sm" onclick="toggleTheme()" title="Toggle Dark/Light Mode" style="width: 38px; height: 38px;">
+                    <i class="fa-solid fa-moon" id="studentThemeIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="tab-content">
+            
+            <!-- 1. Course Dashboard & Materials Tab -->
+            <div class="tab-pane fade show active" id="courses-tab">
+                <div class="card border-0 rounded-4 p-4 mb-4 text-white shadow-sm" style="background: linear-gradient(135deg, #1e3a8a, #0284c7);">
+                    <h4 class="fw-bold mb-2"><i class="fa-solid fa-car me-2"></i> Automotive Department Courses</h4>
+                    <p class="text-white-50 small mb-0">Access lectures, PDFs, PPTs, YouTube resources, view assignment deadlines, and submit your work.</p>
+                </div>
+
+                <!-- Engine Technology Resources Section -->
+                <div class="card border-0 shadow-sm rounded-4 p-4 mb-4" style="background-color: var(--bs-card-bg);">
+                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-book-bookmark me-2"></i> Engine Technology Resources</h5>
+                    <div class="mb-3">
+                        <a href="#" class="btn btn-sm btn-outline-primary fw-bold"><i class="fa-solid fa-download me-1"></i> Download Lecture PDF/PPT</a>
+                    </div>
+                    
+                    <h6 class="fw-bold text-secondary mb-2 mt-4"><i class="fa-solid fa-video me-2 text-danger"></i> Related Video Tutorials:</h6>
+                    <div class="list-group list-group-flush bg-transparent">
+                        <a href="https://www.youtube.com" target="_blank" class="list-group-item list-group-item-action bg-transparent border-0 ps-0 text-primary fw-semibold">
+                            <i class="fa-brands fa-youtube text-danger me-2"></i> Engine Working Principle Tutorial
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Submit Assignment Section -->
+                <div class="card border-0 shadow-sm rounded-4 p-4" style="background-color: var(--bs-card-bg);">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold text-success mb-0"><i class="fa-solid fa-upload me-2"></i> Submit Assignment (PDF / PPT)</h5>
+                        <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill"><i class="fa-solid fa-clock me-1"></i> Deadline: Oct 10, 2026</span>
+                    </div>
+                    <p class="text-muted small mb-3">Please upload your completed assignment before the deadline expires.</p>
+                    
+                    <form action="#" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <input type="file" class="form-control" name="assignment_file" accept=".pdf,.doc,.docx,.ppt,.pptx" required>
+                        </div>
+                        <button type="submit" class="btn btn-success fw-bold px-4">Upload Assignment</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 2. Exam Portal Tab -->
+            <div class="tab-pane fade" id="exam-tab">
+                <div class="card border-0 shadow-sm rounded-4 p-4" style="background-color: var(--bs-card-bg);">
+                    <h5 class="fw-bold mb-3 text-danger"><i class="fa-solid fa-file-pen me-2"></i> Exam Portal</h5>
+                    <p class="text-muted">Active exams and quizzes will appear here when hosted by your instructor.</p>
+                    
+                    <!-- 
+                        ማስታወሻ: ተማሪው ፈተና የሚወስድበት ፎርም ሲኖር id="examForm" ሊኖረው ይገባል:: 
+                        ምሳሌ ያህል የሚከተለው ፎርም ሊኖር ይችላል:
+                    -->
+                    <!--
+                    <form id="examForm" action="{{ url_for('submit_exam') }}" method="POST">
+                        <div class="mb-3">
+                            <p class="fw-bold">1. What is the main function of an engine?</p>
+                            <label><input type="radio" name="q1" value="A"> Option A</label><br>
+                            <label><input type="radio" name="q1" value="B"> Option B</label>
+                        </div>
+                        <button type="submit" class="btn btn-danger">Submit Exam</button>
+                    </form>
+                    -->
+                </div>
+            </div>
+
+            <!-- 3. Teacher Chat Tab -->
+            <div class="tab-pane fade" id="chat-tab">
+                <div class="card border-0 shadow-sm rounded-4 p-4" style="background-color: var(--bs-card-bg);">
+                    <h5 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-comments me-2"></i> Teacher Chat</h5>
+                    <div class="border rounded p-3 mb-3 bg-body-secondary" style="height: 250px; overflow-y: scroll;">
+                        <p class="text-muted text-center mt-5">No messages yet. Start a conversation with your instructor.</p>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Type message to teacher...">
+                        <button class="btn btn-primary" type="button"><i class="fa-solid fa-paper-plane"></i> Send</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. My Grades Tab -->
+            <div class="tab-pane fade" id="grades-tab">
+                <div class="card border-0 shadow-sm rounded-4 p-4" style="background-color: var(--bs-card-bg);">
+                    <h5 class="fw-bold mb-3 text-success"><i class="fa-solid fa-chart-line me-2"></i> My Grades & Results</h5>
+                    <p class="text-muted">Your exam scores and assignment grades will be displayed here.</p>
+                </div>
+            </div>
+
+            <!-- 5. Change Password Tab -->
+            <div class="tab-pane fade" id="settings-tab">
+                <div class="card border-0 shadow-sm rounded-4 p-4" style="background-color: var(--bs-card-bg);">
+                    <h5 class="fw-bold mb-3 text-warning"><i class="fa-solid fa-key me-2"></i> Change Password</h5>
+                    <form action="#" method="POST">
+                        <div class="mb-3"><label class="form-label small fw-bold">Current Password</label><input type="password" class="form-control" required></div>
+                        <div class="mb-3"><label class="form-label small fw-bold">New Password</label><input type="password" class="form-control" required></div>
+                        <button type="submit" class="btn btn-warning fw-bold text-dark">Update Password</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Theme Toggle Function for Student Dashboard
+    function toggleTheme() {
+        const htmlTag = document.documentElement;
+        const icon = document.getElementById('studentThemeIcon');
+        const currentTheme = htmlTag.getAttribute('data-bs-theme');
+
+        if (currentTheme === 'dark') {
+            htmlTag.setAttribute('data-bs-theme', 'light');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+            localStorage.setItem('student_theme', 'light');
+        } else {
+            htmlTag.setAttribute('data-bs-theme', 'dark');
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+            localStorage.setItem('student_theme', 'dark');
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('student_theme') || 'dark';
+        document.documentElement.setAttribute('data-bs-theme', savedTheme);
+        const icon = document.getElementById('studentThemeIcon');
+        if (savedTheme === 'light') {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+    });
+
+    // ==========================================
+    // Anti-Cheating & Screen Lock / Tab Switch Protection
+    // ==========================================
+    document.addEventListener("DOMContentLoaded", function () {
+        let examSubmitted = false;
+
+        // 1. ስልኩ ስክሪን ሲጠፋ፣ ሎክ ሲያደርግ ወይም ተማሪው ወደ ሌላ ታብ/አፕ ሲሄድ
+        document.addEventListener("visibilitychange", function () {
+            if (document.hidden && !examSubmitted) {
+                triggerAutoSubmit("ማስጠንቀቂያ! ስልኮን ሎክ በማድረግዎ ወይም ከፈተናው ገጽ በመውጣትዎ ምክንያት ፈተናዎ በራስ ሰር ተዘግቷል።");
+            }
+        });
+
+        // 2. መስኮቱ ፎከስ ሲያጣ (Window Blur)
+        window.addEventListener("blur", function () {
+            if (!examSubmitted) {
+                triggerAutoSubmit("ማስጠንቀቂያ! ከፈተናው ማዕቀፍ ውጭ ሌላ መተግበሪያ በመክፈትዎ ፈተናዎ ተሰርዟል።");
+            }
+        });
+
+        // ፈተናውን በራሱ ሰሚት (Auto-submit) የሚያደርገው ተግባር
+        function triggerAutoSubmit(message) {
+            if (examSubmitted) return;
+            examSubmitted = true;
+            
+            alert(message);
+            
+            // የፈተናው ፎርም id 'examForm' መሆኑን ያረጋግጡ
+            const examForm = document.getElementById('examForm'); 
+            if (examForm) {
+                examForm.submit();
+            } else {
+                window.location.href = "/student"; 
+            }
+        }
+    });
+</script>
+{% endblock %}

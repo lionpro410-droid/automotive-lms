@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard - Automotive LMS{% endblock %}
+
+{% block content %}
+<div class="row g-0 min-vh-100" style="background-color: var(--bs-body-bg); color: var(--bs-body-color);">
+    
+    <!-- Left Sidebar Menu -->
+    <div class="col-lg-3 col-xl-2 p-3 border-end" style="background-color: #0f172a; border-color: rgba(255,255,255,0.1) !important; color: #ffffff;">
+        <div class="d-flex align-items-center mb-4 px-2 pt-2">
+            <div class="bg-primary text-white p-2 rounded-3 me-2 shadow-sm">
+                <i class="fa-solid fa-car-side fa-lg"></i>
+            </div>
+            <div>
+                <h6 class="fw-bold mb-0 text-white">Automotive LMS</h6>
+                <small class="text-muted" style="font-size: 0.75rem;">Super Admin Portal</small>
+            </div>
+        </div>
+
+        <div class="small text-uppercase text-muted fw-bold px-2 mb-2" style="font-size: 0.7rem;">ADMIN MENU</div>
+        
+        <div class="list-group list-group-flush gap-1">
+            <a href="#teachers-section" class="list-group-item list-group-item-action active rounded-3 border-0 py-2 px-3 text-white" data-bs-toggle="list" style="background: linear-gradient(135deg, #0284c7, #0d9488);">
+                <i class="fa-solid fa-chalkboard-user me-2"></i> Manage Teachers
+            </a>
+            <a href="#system-section" class="list-group-item list-group-item-action rounded-3 border-0 py-2 px-3 text-secondary" data-bs-toggle="list" style="background: transparent;">
+                <i class="fa-solid fa-sliders me-2"></i> System Controls
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="col-lg-9 col-xl-10 p-4">
+        
+        <!-- Top Header Bar with Theme Toggle -->
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
+            <div>
+                <h4 class="fw-bold mb-0">Super Admin Dashboard</h4>
+                <small class="text-muted">Manage department teachers, credentials, and system imports.</small>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <!-- Theme Toggle Button -->
+                <button class="btn btn-sm btn-outline-secondary rounded-circle shadow-sm" onclick="toggleTheme()" title="Toggle Dark/Light Mode" style="width: 38px; height: 38px;">
+                    <i class="fa-solid fa-moon" id="adminThemeIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="tab-content">
+            
+            <!-- 1. Manage Teachers Tab -->
+            <div class="tab-pane fade show active" id="teachers-section">
+                <div class="row g-4">
+                    
+                    <!-- Add Single Teacher Form -->
+                    <div class="col-lg-5">
+                        <div class="card shadow-sm border-0 rounded-4 p-4" style="background-color: var(--bs-card-bg);">
+                            <h5 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-user-plus me-2"></i> Add Single Teacher</h5>
+                            <form action="{{ url_for('admin_dashboard') }}" method="POST">
+                                <input type="hidden" name="form_type" value="single_teacher">
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold">Full Name</label>
+                                    <input type="text" class="form-control" name="fullname" placeholder="Enter full name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold">Username</label>
+                                    <input type="text" class="form-control" name="username" placeholder="Username" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold">Password</label>
+                                    <input type="password" class="form-control" name="password" placeholder="Password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 fw-bold">Add Teacher</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Registered Teachers List -->
+                    <div class="col-lg-7">
+                        <div class="card shadow-sm border-0 rounded-4 p-4" style="background-color: var(--bs-card-bg);">
+                            <h5 class="fw-bold mb-3 text-warning"><i class="fa-solid fa-chalkboard-user me-2"></i> Registered Teachers List</h5>
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Full Name</th>
+                                            <th>Username</th>
+                                            <th class="text-end">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if teachers %}
+                                            {% for teacher in teachers %}
+                                            <tr>
+                                                <td>{{ teacher.fullname }}</td>
+                                                <td>{{ teacher.username }}</td>
+                                                <td class="text-end">
+                                                    <a href="{{ url_for('delete_teacher_route', teacher_id=teacher.id) }}" class="btn btn-sm btn-outline-danger" title="Delete Teacher">
+                                                        <i class="fa-solid fa-trash"></i> Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="3" class="text-center text-muted py-4">No teachers registered yet.</td>
+                                            </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 2. System Controls Tab -->
+            <div class="tab-pane fade" id="system-section">
+                <div class="card shadow-sm border-0 rounded-4 p-4" style="background-color: var(--bs-card-bg);">
+                    <h5 class="fw-bold mb-3 text-success"><i class="fa-solid fa-sliders me-2"></i> System Configuration & Backups</h5>
+                    <p class="text-muted">Global system management tools and settings can be controlled from here.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Theme Toggle Function for Admin Dashboard
+    function toggleTheme() {
+        const htmlTag = document.documentElement;
+        const icon = document.getElementById('adminThemeIcon');
+        const currentTheme = htmlTag.getAttribute('data-bs-theme');
+
+        if (currentTheme === 'dark') {
+            htmlTag.setAttribute('data-bs-theme', 'light');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+            localStorage.setItem('admin_theme', 'light');
+        } else {
+            htmlTag.setAttribute('data-bs-theme', 'dark');
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+            localStorage.setItem('admin_theme', 'dark');
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('admin_theme') || 'dark';
+        document.documentElement.setAttribute('data-bs-theme', savedTheme);
+        const icon = document.getElementById('adminThemeIcon');
+        if (savedTheme === 'light') {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+    });
+</script>
+{% endblock %}

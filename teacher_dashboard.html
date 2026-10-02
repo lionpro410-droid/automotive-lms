@@ -1,0 +1,316 @@
+{% extends "base.html" %}
+{% block title %}Teacher Dashboard - Automotive LMS{% endblock %}
+
+{% block content %}
+<div class="row g-0 min-vh-100" style="background-color: var(--bs-body-bg); color: var(--bs-body-color);">
+    
+    <!-- Left Sidebar Menu (As shown in your preferred layout photos) -->
+    <div class="col-lg-3 col-xl-2 p-3 border-end" style="background-color: #0f172a; border-color: rgba(255,255,255,0.1) !important; color: #ffffff;">
+        <div class="d-flex align-items-center mb-4 px-2 pt-2">
+            <div class="bg-primary text-white p-2 rounded-3 me-2 shadow-sm">
+                <i class="fa-solid fa-car-side fa-lg"></i>
+            </div>
+            <div>
+                <h6 class="fw-bold mb-0 text-white">Auto LMS</h6>
+                <small class="text-muted" style="font-size: 0.75rem;">Teacher Portal</small>
+            </div>
+        </div>
+
+        <div class="small text-uppercase text-muted fw-bold px-2 mb-2" style="font-size: 0.7rem;">MAIN MENU</div>
+        
+        <div class="list-group list-group-flush gap-1">
+            <a href="#overview" class="list-group-item list-group-item-action active rounded-3 border-0 py-2 px-3 text-white" data-bs-toggle="list" style="background: linear-gradient(135deg, #0284c7, #0d9488);">
+                <i class="fa-solid fa-chart-pie me-2"></i> Dashboard
+            </a>
+            <a href="#courses" class="list-group-item list-group-item-action rounded-3 border-0 py-2 px-3 text-secondary" data-bs-toggle="list" style="background: transparent;">
+                <i class="fa-solid fa-book-open me-2"></i> Courses & Modules
+            </a>
+            <a href="#students-section" class="list-group-item list-group-item-action rounded-3 border-0 py-2 px-3 text-secondary" data-bs-toggle="list" style="background: transparent;">
+                <i class="fa-solid fa-users me-2"></i> Students
+            </a>
+            <a href="#exams" class="list-group-item list-group-item-action rounded-3 border-0 py-2 px-3 text-secondary" data-bs-toggle="list" style="background: transparent;">
+                <i class="fa-solid fa-file-pen me-2"></i> Exams & Quizzes
+            </a>
+            <a href="#analytics" class="list-group-item list-group-item-action rounded-3 border-0 py-2 px-3 text-secondary" data-bs-toggle="list" style="background: transparent;">
+                <i class="fa-solid fa-chart-line me-2"></i> Analytics
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="col-lg-9 col-xl-10 p-4">
+        
+        <!-- Top Header Bar with Theme Toggle -->
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
+            <div>
+                <h4 class="fw-bold mb-0">Dashboard</h4>
+                <small class="text-muted">Welcome back, Instructor</small>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <!-- Theme Toggle Button matching your photo style -->
+                <button class="btn btn-sm btn-outline-secondary rounded-circle shadow-sm" onclick="toggleTheme()" title="Toggle Dark/Light Mode" style="width: 38px; height: 38px;">
+                    <i class="fa-solid fa-moon" id="teacherThemeIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="tab-content">
+            
+            <!-- 1. Dashboard Overview Tab (Matching photo layout) -->
+            <div class="tab-pane fade show active" id="overview">
+                
+                <!-- Department Management Banner Card -->
+                <div class="card border-0 rounded-4 p-4 mb-4 text-white shadow-sm" style="background: linear-gradient(135deg, #1e3a8a, #0284c7);">
+                    <h4 class="fw-bold mb-2">Automotive Department Management</h4>
+                    <p class="text-white-50 small mb-3">Manage course content, track student progress, and organize practical lab assessments all in one place.</p>
+                    <div>
+                        <span class="badge bg-dark bg-opacity-50 px-3 py-2 rounded-pill"><i class="fa-solid fa-bolt text-warning me-1"></i> Electrical Systems & Diagnostics</span>
+                    </div>
+                </div>
+
+                <!-- Metrics Grid Cards -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card border-0 shadow-sm rounded-4 p-3 h-100" style="background-color: var(--bs-card-bg);">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="bg-primary bg-opacity-10 text-primary p-2 rounded-3 me-3"><i class="fa-solid fa-book fa-lg"></i></div>
+                                <span class="text-muted small fw-bold">Active Courses</span>
+                            </div>
+                            <h3 class="fw-bold mb-0 ms-1">6</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card border-0 shadow-sm rounded-4 p-3 h-100" style="background-color: var(--bs-card-bg);">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="bg-success bg-opacity-10 text-success p-2 rounded-3 me-3"><i class="fa-solid fa-users fa-lg"></i></div>
+                                <span class="text-muted small fw-bold">Enrolled Students</span>
+                            </div>
+                            <h3 class="fw-bold mb-0 ms-1">{{ students|length if students else 0 }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card border-0 shadow-sm rounded-4 p-3 h-100" style="background-color: var(--bs-card-bg);">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="bg-warning bg-opacity-10 text-warning p-2 rounded-3 me-3"><i class="fa-solid fa-clock-rotate-left fa-lg"></i></div>
+                                <span class="text-muted small fw-bold">Pending Submissions</span>
+                            </div>
+                            <h3 class="fw-bold mb-0 ms-1">0</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card border-0 shadow-sm rounded-4 p-3 h-100" style="background-color: var(--bs-card-bg);">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="bg-info bg-opacity-10 text-info p-2 rounded-3 me-3"><i class="fa-solid fa-chart-line fa-lg"></i></div>
+                                <span class="text-muted small fw-bold">Avg. Pass Rate</span>
+                            </div>
+                            <h3 class="fw-bold mb-0 ms-1">0%</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Section -->
+                <div class="card border-0 shadow-sm rounded-4 p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fa-solid fa-history text-primary me-2"></i>
+                        <h6 class="fw-bold mb-0">Recent Activity</h6>
+                    </div>
+                    <p class="text-muted small mb-3">Latest student updates and submissions.</p>
+                    <div class="table-responsive">
+                        <table class="table align-middle mb-0">
+                            <thead class="table-light">
+                                <tr class="small text-muted">
+                                    <th>STUDENT</th>
+                                    <th>ID NO</th>
+                                    <th>MODULE</th>
+                                    <th>STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted py-4 small">No recent activity yet.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 2. Courses & Modules Tab (Your functionality) -->
+            <div class="tab-pane fade" id="courses">
+                <div class="card border-0 shadow-sm rounded-4 p-4" style="background-color: var(--bs-card-bg);">
+                    <h5 class="fw-bold mb-3 text-warning"><i class="fa-solid fa-book-open me-2"></i>Upload Material & Assignment Deadline</h5>
+                    <form action="{{ url_for('teacher_dashboard') }}" method="POST">
+                        <input type="hidden" name="form_type" value="material">
+                        <div class="mb-2"><label class="form-label small fw-bold">Material / Assignment Title</label><input type="text" class="form-control" name="title" required></div>
+                        <div class="mb-2"><label class="form-label small fw-bold">YouTube Video Link</label><input type="url" class="form-control" name="youtube" placeholder="https://www.youtube.com/watch?v=..." required></div>
+                        <div class="mb-3"><label class="form-label small fw-bold">Assignment Deadline (Date & Time)</label><input type="datetime-local" class="form-control" name="deadline" required></div>
+                        <button type="submit" class="btn btn-warning w-100 fw-bold text-dark">Publish Material & Deadline</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 3. Students Management Tab (Add Single, Excel & List) -->
+            <div class="tab-pane fade" id="students-section">
+                <div class="row g-4">
+                    <!-- Left Forms: Add Single & Excel -->
+                    <div class="col-lg-5">
+                        <div class="card shadow-sm border-0 rounded-4 p-4 mb-4" style="background-color: var(--bs-card-bg);">
+                            <h5 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-user-plus me-2"></i>Add Single Student</h5>
+                            <form action="{{ url_for('teacher_dashboard') }}" method="POST">
+                                <input type="hidden" name="form_type" value="single_student">
+                                <div class="mb-2"><label class="form-label small fw-bold">Full Name</label><input type="text" class="form-control" name="fullname" required></div>
+                                <div class="mb-2"><label class="form-label small fw-bold">Username</label><input type="text" class="form-control" name="username" required></div>
+                                <div class="mb-2"><label class="form-label small fw-bold">ID No</label><input type="text" class="form-control" name="id_no" required></div>
+                                <div class="mb-3"><label class="form-label small fw-bold">Password</label><input type="password" class="form-control" name="password" required></div>
+                                <button type="submit" class="btn btn-primary w-100 fw-bold">Add Student</button>
+                            </form>
+                        </div>
+
+                        <div class="card shadow-sm border-0 rounded-4 p-4" style="background-color: var(--bs-card-bg);">
+                            <h5 class="fw-bold mb-3 text-success"><i class="fa-solid fa-file-excel me-2"></i>Upload Students via Excel</h5>
+                            <form action="{{ url_for('teacher_dashboard') }}" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="form_type" value="excel_student">
+                                <div class="mb-2"><label class="form-label small fw-bold">Default Password for All</label><input type="text" class="form-control" name="default_password" value="123456" required></div>
+                                <div class="mb-3"><label class="form-label small fw-bold">Select Excel File (.xlsx)</label><input type="file" class="form-control" name="excel_file" accept=".xlsx" required></div>
+                                <button type="submit" class="btn btn-success w-100 fw-bold">Import Excel</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Right List & Chat -->
+                    <div class="col-lg-7">
+                        <div class="card shadow-sm border-0 rounded-4 p-4 mb-4" style="background-color: var(--bs-card-bg);">
+                            <h5 class="fw-bold mb-3"><i class="fa-solid fa-users me-2 text-warning"></i>Registered Students List</h5>
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Full Name</th>
+                                            <th>Username</th>
+                                            <th>ID No</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if students %}
+                                            {% for student in students %}
+                                            <tr>
+                                                <td>{{ student.fullname }}</td>
+                                                <td>{{ student.username }}</td>
+                                                <td>{{ student.id_no }}</td>
+                                                <td>
+                                                    <a href="{{ url_for('delete_student_route', student_id=student.id) }}" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="4" class="text-center text-muted py-3">No students registered yet.</td>
+                                            </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Chat System -->
+                        <div class="card shadow-sm border-0 rounded-4 p-4" style="background-color: var(--bs-card-bg);">
+                            <h5 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-comments me-2"></i>Student Messages & Chat</h5>
+                            <div class="border rounded p-3 mb-3 bg-body-secondary" style="height: 200px; overflow-y: scroll;">
+                                {% if chats %}
+                                    {% for chat in chats %}
+                                        <div class="mb-2">
+                                            <strong>{{ chat.sender }}:</strong> <span>{{ chat.message }}</span>
+                                            <small class="text-muted float-end">{{ chat.time }}</small>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="text-muted text-center mt-4">No messages from students yet.</p>
+                                {% endif %}
+                            </div>
+                            <form action="{{ url_for('teacher_dashboard') }}" method="POST">
+                                <input type="hidden" name="form_type" value="send_chat">
+                                <input type="hidden" name="receiver" value="All Students">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="message" placeholder="Type reply..." required>
+                                    <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Exams & Quizzes Tab -->
+            <div class="tab-pane fade" id="exams">
+                <div class="card shadow-sm border-0 rounded-4 p-4" style="background-color: var(--bs-card-bg);">
+                    <h5 class="fw-bold mb-3 text-danger"><i class="fa-solid fa-file-pen me-2"></i>Host Exam & Controls</h5>
+                    <form action="{{ url_for('teacher_dashboard') }}" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="form_type" value="exam">
+                        <div class="mb-2"><label class="form-label small fw-bold">Exam Title</label><input type="text" class="form-control" name="exam_title" required></div>
+                        <div class="mb-2"><label class="form-label small fw-bold">Exam File (PDF / Word)</label><input type="file" class="form-control" name="exam_file" accept=".pdf,.doc,.docx" required></div>
+                        <div class="mb-2"><label class="form-label small fw-bold">Exam Answer Key (PDF / Word)</label><input type="file" class="form-control" name="answer_file" accept=".pdf,.doc,.docx" required></div>
+                        <div class="mb-2"><label class="form-label small fw-bold">Exam Password</label><input type="password" class="form-control" name="exam_password" required></div>
+                        <div class="row">
+                            <div class="col-6 mb-2"><label class="form-label small fw-bold">Duration (Mins)</label><input type="number" class="form-control" name="duration" required></div>
+                            <div class="col-6 mb-2"><label class="form-label small fw-bold">Passing Score</label><input type="number" class="form-control" name="passing_score" required></div>
+                        </div>
+                        <div class="form-check form-switch mt-2">
+                            <input class="form-check-input" type="checkbox" name="grade_view" id="gradeViewCheck" checked>
+                            <label class="form-check-label small" for="gradeViewCheck">Grade View (On/Off)</label>
+                        </div>
+                        <div class="form-check form-switch mt-2 mb-3">
+                            <input class="form-check-input" type="checkbox" name="screen_timeout" id="screenTimeoutCheck">
+                            <label class="form-check-label small" for="screenTimeoutCheck">Screen Timeout Auto-Submit (On/Off)</label>
+                        </div>
+                        <button type="submit" class="btn btn-danger w-100 fw-bold">Host Exam</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 5. Analytics Tab -->
+            <div class="tab-pane fade" id="analytics">
+                <div class="card border-0 shadow-sm rounded-4 p-4" style="background-color: var(--bs-card-bg);">
+                    <h5 class="fw-bold mb-3"><i class="fa-solid fa-chart-line text-success me-2"></i>Department Analytics</h5>
+                    <p class="text-muted">Detailed statistics on student performance and quiz success rates will appear here.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Smooth Dark & Light Mode Toggle for Teacher Dashboard
+    function toggleTheme() {
+        const htmlTag = document.documentElement;
+        const icon = document.getElementById('teacherThemeIcon');
+        const currentTheme = htmlTag.getAttribute('data-bs-theme');
+
+        if (currentTheme === 'dark') {
+            htmlTag.setAttribute('data-bs-theme', 'light');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+            localStorage.setItem('teacher_theme', 'light');
+        } else {
+            htmlTag.setAttribute('data-bs-theme', 'dark');
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+            localStorage.setItem('teacher_theme', 'dark');
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('teacher_theme') || 'dark';
+        document.documentElement.setAttribute('data-bs-theme', savedTheme);
+        const icon = document.getElementById('teacherThemeIcon');
+        if (savedTheme === 'light') {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+    });
+</script>
+{% endblock %}

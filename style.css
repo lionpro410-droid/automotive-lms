@@ -1,0 +1,51 @@
+/* Custom Automotive LMS Styles */
+
+@keyframes wave {
+    0% { transform: rotate(0.0deg); }
+    10% { transform: rotate(14.0deg); }
+    20% { transform: rotate(-8.0deg); }
+    30% { transform: rotate(14.0deg); }
+    40% { transform: rotate(-4.0deg); }
+    50% { transform: rotate(10.0deg); }
+    60% { transform: rotate(0.0deg); }
+    100% { transform: rotate(0.0deg); }
+}
+
+.wave-hand {
+    display: inline-block;
+    animation: wave 2s infinite;
+    transform-origin: 70% 70%;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212 !important;
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode .card {
+    background-color: #1e1e1e !important;
+    color: #e0e0e0 !important;
+    border: 1px solid #333 !important;
+}
+
+body.dark-mode .form-control {
+    background-color: #2b2b2b !important;
+    color: #fff !important;
+    border-color: #444 !important;
+}
+
+body.dark-mode .input-group-text {
+    background-color: #2b2b2b !important;
+    color: #fff !important;
+    border-color: #444 !important;
+}
+
+body.dark-mode .table {
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode .table-hover tbody tr:hover {
+    background-color: #2a2a2a !important;
+    color: #fff !important;
+}

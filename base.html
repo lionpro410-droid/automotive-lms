@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Automotive LMS{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Smooth Motion / Animation for Greeting & Brand Title */
+        @keyframes fadeInSlide {
+            0% { opacity: 0; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes waveAnimation {
+            0% { transform: rotate(0deg); }
+            20% { transform: rotate(14deg); }
+            40% { transform: rotate(-8deg); }
+            60% { transform: rotate(14deg); }
+            80% { transform: rotate(-4deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .animated-title {
+            animation: fadeInSlide 0.8s ease-in-out;
+        }
+        .wave-hand {
+            display: inline-block;
+            animation: waveAnimation 2s infinite;
+            transform-origin: 70% 70%;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-body text-body">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold animated-title" href="#">
+                <i class="fa-solid fa-car-side text-warning me-2"></i>Automotive LMS
+            </a>
+            
+            <div class="d-flex align-items-center">
+                {% if session.get('user') %}
+                <span class="text-white me-3 d-none d-md-inline animated-title" id="user-greeting">
+                    Welcome, {{ session.get('user') }} <span class="wave-hand">👋</span>
+                </span>
+                {% endif %}
+
+                <!-- Logout Button -->
+                {% if session.get('user') %}
+                <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-fluid p-0">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="text-center py-3 mt-auto text-muted border-top">
+        <small>&copy; 2026 Automotive Department LMS. All rights reserved.</small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
